@@ -313,4 +313,23 @@ int Kernel::CreateFile(char *filename)
 	return fileSystem->Create(filename);
 }
 
+int Kernel::Open(char* filename)
+{
+    return fileSystem->Open(filename, 0);
+}
+
+int Kernel::Write(char* buffer, int size, int id)
+{
+    return fileSystem->Write(buffer, size, id);
+}
+
+int Kernel::Read(char* buffer, int size, int id)
+{
+    return fileSystem->Read(buffer, size, id);
+}
+
+int Kernel::Close(int id)
+{
+    return fileSystem->Close(id);
+}
 

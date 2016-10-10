@@ -45,19 +45,55 @@ class FileSystem {
     FileSystem() { for (int i = 0; i < 20; i++) fileDescriptorTable[i] = NULL; }
 
     bool Create(char *name) {
-	int fileDescriptor = OpenForWrite(name);
+        int fileDescriptor = OpenForWrite(name);
 
-	if (fileDescriptor == -1) return FALSE;
-	Close(fileDescriptor);
-	return TRUE;
+        if (fileDescriptor == -1) return FALSE;
+        Close(fileDescriptor);
+        return TRUE;
 	}
 
     OpenFile* Open(char *name) {
-	  int fileDescriptor = OpenForReadWrite(name, FALSE);
+        int fileDescriptor = OpenForReadWrite(name, FALSE);
 
-	  if (fileDescriptor == -1) return NULL;
-	  return new OpenFile(fileDescriptor);
-      }
+        if (fileDescriptor == -1) return NULL;
+        return new OpenFile(fileDescriptor);
+    }
+
+    // add argument int unused to overload Open()
+    // it's unused, so you can pass any value during function call
+    int Open(char* name, int unused) {
+        int fileid = OpenForReadWrite(name, FALSE);
+        if (fileid == -1) return -1;
+        if (fileid >= 20) {
+            cerr << "fd >= 20!!!" << endl;
+            return -1;
+        }
+        fileDescriptorTable[fileid] = new OpenFile(fileid);
+        return fileid;
+    }
+
+    int Write(char* buffer, int size, int fileid) {
+        if (fileDescriptorTable[fileid] == NULL) {
+            return -1;
+        }
+        return fileDescriptorTable[fileid]->Write(buffer, size);
+    }
+
+    int Read(char* buffer, int size, int fileid) {
+        if (fileDescriptorTable[fileid] == NULL) {
+            return -1;
+        }
+        return fileDescriptorTable[fileid]->Read(buffer, size);
+    }
+
+    int Close(int fileid) {
+        if (fileDescriptorTable[fileid] == NULL) {
+            return 0;
+        }
+        delete fileDescriptorTable[fileid];
+        fileDescriptorTable[fileid] = NULL;
+        return 1;
+    }
 
     bool Remove(char *name) { return Unlink(name) == 0; }
 

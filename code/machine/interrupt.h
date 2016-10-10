@@ -94,8 +94,17 @@ class Interrupt {
 
     void Halt(); 		// quit and print out stats
 
-    void PrintInt(int number);
-	int CreateFile(char *filename);
+    void PrintInt(int number); // print an integer to console output
+
+	int CreateFile(char *filename); // create a file with filename
+
+    int Open(char* name); // open file
+
+    int Write(char* buffer, int size, int id); // write
+
+    int Read(char* buffer, int size, int id); // read
+
+    int Close(int id); //close
 
     void YieldOnReturn();	// cause a context switch on return
 				// from an interrupt handler

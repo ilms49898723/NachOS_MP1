@@ -53,7 +53,11 @@ ExceptionHandler(ExceptionType which)
 {
     int type = kernel->machine->ReadRegister(2);
 	int val;
-    int status, exit, threadID, programID;
+    int status;
+    // the following three vars has not been used yet.
+    // int threadID;
+    // int programID;
+    // int exit;
 	DEBUG(dbgSys, "Received Exception " << which << " type: " << type << "\n");
     switch (which) {
     case SyscallException:

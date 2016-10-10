@@ -427,7 +427,8 @@ Thread::SelfTest()
 {
     DEBUG(dbgThread, "Entering Thread::SelfTest");
 
-    Thread *t = new Thread("forked thread", 1);
+    char forkedthreadStringConstant[] = "forked thread";
+    Thread *t = new Thread(forkedthreadStringConstant, 1);
 
     t->Fork((VoidFunctionPtr) SimpleThread, (void *) 1);
     kernel->currentThread->Yield();

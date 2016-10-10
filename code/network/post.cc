@@ -152,14 +152,16 @@ MailBox::Get(PacketHeader *pktHdr, MailHeader *mailHdr, char *data)
 
 PostOfficeInput::PostOfficeInput(int nBoxes)
 {
-    messageAvailable = new Semaphore("message available", 0);
+    char messageAvailableStringConstant[] = "message available";
+    messageAvailable = new Semaphore(messageAvailableStringConstant, 0);
 
     numBoxes = nBoxes;
     boxes = new MailBox[nBoxes];
 
     network = new NetworkInput(this);
 
-    Thread *t = new Thread("postal worker", 1);
+    char postalworkerStringConstant[] = "postal worker";
+    Thread *t = new Thread(postalworkerStringConstant, 1);
 
     t->Fork(PostOfficeInput::PostalDelivery, this);
 }
@@ -265,8 +267,10 @@ PostOfficeInput::CallBack()
 
 PostOfficeOutput::PostOfficeOutput(double reliability)
 {
-    messageSent = new Semaphore("message sent", 0);
-    sendLock = new Lock("message send lock");
+    char messagesentStringConstant[] = "message sent";
+    char messagesendlockStringConstant[] = "message send lock";
+    messageSent = new Semaphore(messagesentStringConstant, 0);
+    sendLock = new Lock(messagesendlockStringConstant);
 
     network = new NetworkOutput(reliability, this);
 }

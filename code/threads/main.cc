@@ -167,7 +167,8 @@ int
 main(int argc, char **argv)
 {
     int i;
-    char *debugArg = "";
+    char emptyStringConstant[] = "";
+    char *debugArg = emptyStringConstant;
     char *userProgName = NULL;        // default is not to execute a user prog
     bool threadTestFlag = false;
     bool consoleTestFlag = false;

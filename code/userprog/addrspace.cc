@@ -135,7 +135,7 @@ AddrSpace::Load(char *fileName)
     numPages = divRoundUp(size, PageSize);
     size = numPages * PageSize;
 
-    ASSERT(numPages <= NumPhysPages);		// check we're not trying
+    ASSERT(numPages <= static_cast<unsigned>(NumPhysPages));		// check we're not trying
 						// to run anything too big --
 						// at least until we have
 						// virtual memory
@@ -301,9 +301,9 @@ AddrSpace::Translate(unsigned int vaddr, unsigned int *paddr, int isReadWrite)
     if(isReadWrite)
         pte->dirty = TRUE;
 
-    *paddr = pfn*PageSize + offset;
+    *paddr = static_cast<unsigned>(pfn) * PageSize + offset;
 
-    ASSERT((*paddr < MemorySize));
+    ASSERT((*paddr < static_cast<unsigned>(MemorySize)));
 
     //cerr << " -- AddrSpace::Translate(): vaddr: " << vaddr <<
     //  ", paddr: " << *paddr << "\n";

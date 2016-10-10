@@ -94,8 +94,8 @@ Kernel::Initialize()
     // But if it ever tries to give up the CPU, we better have a Thread
     // object to save its state.
 
-
-    currentThread = new Thread("main", threadNum++);
+    char mainThreadName[] = "main";
+    currentThread = new Thread(mainThreadName, threadNum++);
     currentThread->setStatus(RUNNING);
 
     stats = new Statistics();		// collect statistics
@@ -154,7 +154,8 @@ Kernel::ThreadSelfTest() {
    currentThread->SelfTest();	// test thread switching
 
    				// test semaphore operation
-   semaphore = new Semaphore("test", 0);
+   char testSemaphoreName[] = "test";
+   semaphore = new Semaphore(testSemaphoreName, 0);
    semaphore->SelfTest();
    delete semaphore;
 
@@ -210,8 +211,8 @@ Kernel::NetworkTest() {
         int farHost = (hostName == 0 ? 1 : 0);
         PacketHeader outPktHdr, inPktHdr;
         MailHeader outMailHdr, inMailHdr;
-        char *data = "Hello there!";
-        char *ack = "Got it!";
+        char data[] = "Hello there!";
+        char ack[] = "Got it!";
         char buffer[MaxMailSize];
 
         // construct packet, mail header for original message
@@ -261,7 +262,8 @@ void ForkExecute(Thread *t)
 void Kernel::ExecAll()
 {
 	for (int i=1;i<=execfileNum;i++) {
-		int a = Exec(execfile[i]);
+		// int a = Exec(execfile[i]);
+        Exec(execfile[i]);
 	}
 	currentThread->Finish();
     //Kernel::Exec();

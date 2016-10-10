@@ -26,8 +26,8 @@
 
 // String definitions for debugging messages
 
-static char *intLevelNames[] = { "off", "on"};
-static char *intTypeNames[] = { "timer", "disk", "console write",
+static char intLevelNames[][5] = { "off", "on"};
+static char intTypeNames[][50] = { "timer", "disk", "console write",
 			"console read", "network send",
 			"network recv"};
 

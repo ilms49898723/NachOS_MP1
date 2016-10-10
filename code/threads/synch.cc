@@ -135,10 +135,11 @@ SelfTestHelper (Semaphore *pong)
 void
 Semaphore::SelfTest()
 {
-    Thread *helper = new Thread("ping", 1);
+    char pingStringConstant[] = "ping";
+    Thread *helper = new Thread(pingStringConstant, 1);
 
     ASSERT(value == 0);		// otherwise test won't work!
-    ping = new Semaphore("ping", 0);
+    ping = new Semaphore(pingStringConstant, 0);
     helper->Fork((VoidFunctionPtr) SelfTestHelper, this);
     for (int i = 0; i < 10; i++) {
         ping->V();
@@ -157,8 +158,9 @@ Semaphore::SelfTest()
 
 Lock::Lock(char* debugName)
 {
+    char lockStringConstant[] = "lock";
     name = debugName;
-    semaphore = new Semaphore("lock", 1);  // initially, unlocked
+    semaphore = new Semaphore(lockStringConstant, 1);  // initially, unlocked
     lockHolder = NULL;
 }
 
@@ -247,7 +249,8 @@ void Condition::Wait(Lock* conditionLock)
 
      ASSERT(conditionLock->IsHeldByCurrentThread());
 
-     waiter = new Semaphore("condition", 0);
+     char conditionStringConstant[] = "condition";
+     waiter = new Semaphore(conditionStringConstant, 0);
      waitQueue->Append(waiter);
      conditionLock->Release();
      waiter->P();

@@ -19,9 +19,10 @@
 
 SynchConsoleInput::SynchConsoleInput(char *inputFile)
 {
+    char consoleinStringConstant[] = "console in";
     consoleInput = new ConsoleInput(inputFile, this);
-    lock = new Lock("console in");
-    waitFor = new Semaphore("console in", 0);
+    lock = new Lock(consoleinStringConstant);
+    waitFor = new Semaphore(consoleinStringConstant, 0);
 }
 
 //----------------------------------------------------------------------
@@ -75,9 +76,10 @@ SynchConsoleInput::CallBack()
 
 SynchConsoleOutput::SynchConsoleOutput(char *outputFile)
 {
+    char consoleoutStringConstant[] = "console out";
     consoleOutput = new ConsoleOutput(outputFile, this);
-    lock = new Lock("console out");
-    waitFor = new Semaphore("console out", 0);
+    lock = new Lock(consoleoutStringConstant);
+    waitFor = new Semaphore(consoleoutStringConstant, 0);
 }
 
 //----------------------------------------------------------------------

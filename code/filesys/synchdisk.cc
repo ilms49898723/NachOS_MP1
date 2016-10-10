@@ -27,8 +27,10 @@
 
 SynchDisk::SynchDisk()
 {
-    semaphore = new Semaphore("synch disk", 0);
-    lock = new Lock("synch disk lock");
+    char synchdiskStringConstant[] = "synch disk";
+    char synchdisklockStringConstant[] = "synch disk lock";
+    semaphore = new Semaphore(synchdiskStringConstant, 0);
+    lock = new Lock(synchdisklockStringConstant);
     disk = new Disk(this);
 }
 

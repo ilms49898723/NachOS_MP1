@@ -1,0 +1,14 @@
+# tag files
+*.tags
+
+# File Built
+*.o
+nachos
+
+# Built Directory
+code/build.cygwin/
+code/build.linux/
+code/build.macosx/
+
+# Test Directory
+code/test/

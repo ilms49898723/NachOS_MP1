@@ -28,7 +28,7 @@
 ConsoleInput::ConsoleInput(char *readFile, CallBackObj *toCall)
 {
     if (readFile == NULL)
-	readFileNo = 0;					// keyboard = stdin
+        readFileNo = 0;					// keyboard = stdin
     else
     	readFileNo = OpenForReadWrite(readFile, TRUE);	// should be read-only
 
@@ -48,7 +48,7 @@ ConsoleInput::ConsoleInput(char *readFile, CallBackObj *toCall)
 ConsoleInput::~ConsoleInput()
 {
     if (readFileNo != 0)
-	Close(readFileNo);
+        Close(readFileNo);
 }
 
 
@@ -64,8 +64,8 @@ ConsoleInput::~ConsoleInput()
 void
 ConsoleInput::CallBack()
 {
-  char c;
-  int readCount;
+    char c;
+    int readCount;
 
     ASSERT(incoming == EOF);
     if (!PollFile(readFileNo)) { // nothing to be read
@@ -74,21 +74,21 @@ ConsoleInput::CallBack()
     } else {
     	// otherwise, try to read a character
     	readCount = ReadPartial(readFileNo, &c, sizeof(char));
-	if (readCount == 0) {
-	   // this seems to happen at end of file, when the
-	   // console input is a regular file
-	   // don't schedule an interrupt, since there will never
-	   // be any more input
-	   // just do nothing....
-	}
-	else {
-	  // save the character and notify the OS that
-	  // it is available
-	  ASSERT(readCount == sizeof(char));
-	  incoming = c;
-	  kernel->stats->numConsoleCharsRead++;
-	}
-	callWhenAvail->CallBack();
+        if (readCount == 0) {
+           // this seems to happen at end of file, when the
+           // console input is a regular file
+           // don't schedule an interrupt, since there will never
+           // be any more input
+           // just do nothing....
+        }
+        else {
+          // save the character and notify the OS that
+          // it is available
+          ASSERT(readCount == sizeof(char));
+          incoming = c;
+          kernel->stats->numConsoleCharsRead++;
+        }
+        callWhenAvail->CallBack();
     }
 }
 
@@ -124,7 +124,7 @@ ConsoleInput::GetChar()
 ConsoleOutput::ConsoleOutput(char *writeFile, CallBackObj *toCall)
 {
     if (writeFile == NULL)
-	writeFileNo = 1;				// display = stdout
+        writeFileNo = 1;				// display = stdout
     else
     	writeFileNo = OpenForWrite(writeFile);
 
@@ -140,7 +140,7 @@ ConsoleOutput::ConsoleOutput(char *writeFile, CallBackObj *toCall)
 ConsoleOutput::~ConsoleOutput()
 {
     if (writeFileNo != 1)
-	Close(writeFileNo);
+        Close(writeFileNo);
 }
 
 //----------------------------------------------------------------------

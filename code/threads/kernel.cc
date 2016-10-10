@@ -303,6 +303,11 @@ int Kernel::Exec(char* name)
 //  cout << "after ThreadedKernel:Run();" << endl;  // unreachable
 }
 
+void Kernel::PrintChar(char c)
+{
+    synchConsoleOut->PutChar(c);
+}
+
 int Kernel::CreateFile(char *filename)
 {
 	return fileSystem->Create(filename);

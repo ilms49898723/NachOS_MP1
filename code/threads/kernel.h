@@ -44,6 +44,8 @@ class Kernel {
     void NetworkTest();         // interactive 2-machine network test
 	Thread* getThread(int threadID){return t[threadID];}
 
+    void PrintChar(char c);
+
 	int CreateFile(char* filename); // fileSystem call
 
 // These are public for notational convenience; really,

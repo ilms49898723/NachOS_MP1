@@ -37,6 +37,8 @@
 #define SC_Add		42
 #define SC_MSG		100
 
+#define SC_PrintInt 20
+
 #ifndef IN_ASM
 
 /* The system call interface.  These are the operations the Nachos
@@ -52,11 +54,14 @@
 /* Stop Nachos, and print out performance stats */
 void Halt();
 
+/* Print a integer */
+void PrintInt(int number);
+
 /*
  * Add the two operants and return the result
  */
-
 int Add(int op1, int op2);
+
 /*
  * Just for simply showing message, not a safe way for console IO
  */

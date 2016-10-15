@@ -10,5 +10,9 @@ code/build.cygwin/
 code/build.linux/
 code/build.macosx/
 
+# Some ?? files
+code/cscope.files
+code/cscope.out
+
 # Test Directory
 code/test/

@@ -66,6 +66,7 @@ class FileSystem {
         if (fileid == -1) return -1;
         if (fileid >= 20) {
             cerr << "fd >= 20!!!" << endl;
+            ::Close(fileid);
             return -1;
         }
         fileDescriptorTable[fileid] = new OpenFile(fileid);
